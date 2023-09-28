@@ -1,0 +1,70 @@
+/* GENERIC RESETS */
+html {
+    box-sizing: border-box;
+    font-size: 10px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+  /* Try to keep your margins going in one direction to avoid margin collapase or grounding. I switch all the top margins off to avoid this issue. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  dl {
+    margin-top: 0;
+  }
+
+/* ACTUAL STYLES */
+body {
+    font-size: 1.6rem;
+    margin: 0;
+    min-height: 100vh;
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
+    background-color: #abcdef;
+}
+
+.currentTemp__container {
+    margin: 2rem auto;
+    padding: 1.5rem;
+    width: fit-content;
+    background-color: #fbfbfb;
+    border-radius: .75rem;
+}
+
+.cityInput {
+    background-color: #efefef;
+}
+
+.cityInput, .searchBtn {
+    padding: .5rem;
+    border-radius: .3rem;
+    border: none;
+    outline: none;
+}
+
+.cityInput:hover {
+    background-color: #dfdfdf;
+}
+
+.cityInput:focus{
+    outline: .25rem solid #f08732;
+}
+
+.searchBtn:hover {
+    background-color: #f08732;
+    color: white;
+}
