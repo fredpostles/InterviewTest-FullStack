@@ -34,13 +34,17 @@ body {
     min-height: 100vh;
     text-align: center;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
-    background-color: #abcdef;
+    background-color: #eeeeee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .currentTemp__container {
     margin: 2rem auto;
-    padding: 1.5rem;
-    width: fit-content;
+    padding: 2.5rem;
+    width: 60vw;
+    min-width: fit-content;
     background-color: #fbfbfb;
     border-radius: .75rem;
 }
