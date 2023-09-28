@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <title>Born Coding Challenge</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="./styles.css">
-    <script src="./main.js"></script>
+    <link rel="stylesheet" href="../frontend/css/styles.css">
+    <script src="../frontend/js/main.js" defer type="module"></script>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" preload="true"></script>
 </head>
 <body>
   <main>
@@ -15,7 +17,7 @@
             <input type="text" placeholder="Enter a UK city" class="cityInput" id="cityInput">
             <button type="submit" class="searchBtn" id="searchBtn">Search</button>
         </div>
-        <div id="weatherData__container"></div>
+        <div class="weatherData__container" id="weatherData__container"></div>
     </div>
   </main>
 </body>

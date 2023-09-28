@@ -45,6 +45,10 @@ body {
     border-radius: .75rem;
 }
 
+.searchBar__container {
+    margin-bottom: 1rem;
+}
+
 .cityInput {
     background-color: #efefef;
 }
@@ -67,4 +71,15 @@ body {
 .searchBtn:hover {
     background-color: #f08732;
     color: white;
+}
+
+.weatherData__container {
+    padding: 1.5rem;
+    text-align: center;
+    align-items: center;
+
+}
+
+.weatherData__container p {
+    margin-bottom: 0;
 }
