@@ -16,34 +16,38 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 axios.get(`http://localhost:3000/getTemperature?city=${cityName}`)
                 .then((response)=> {
-                    console.log("response.data:", response.data);
-                    console.log("response status:", response.status);
-
                     const data = response.data;
-
-                    if(data.error === "City not found."){
-                        output.innerHTML = `<p>Data for ${cityName} is unavailable. Please try another city.</p>`;
-                    } else if(response.status === 200){
-                        // city found but no temp data available
-                        if(data.cityEntry && !data.temperature) {
-                            console.log("Temperature data not available for this city. Check spelling or try another city.");
-                            output.innerHTML = `<p>Sorry, temperature data is not currently available for ${cityName}. Please try another city.</p>`;
-                        } else if(data.temperature) {
-                            // temp data found for cityName
-                            output.innerHTML = `<p>The current temperature in ${data.cityEntry.city} is ${data.temperature}ºC.</p>`;
+                    if(response.status === 200){
+                        // temp data found for cityName
+                        output.innerHTML = `<p>The current temperature in ${data.cityEntry.city} is ${data.temperature}ºC.</p>`;
+                    }
+                })
+                .catch((error) => {
+                    if (error.response){
+                        // request made but server responded with non-2xx status code
+                        if (error.response.status === 404){
+                            // log the error from the server
+                            console.error(error.response.data.error);
+                            // handle "city not found" error in UI
+                            output.innerHTML = `<p>Data for ${cityName} is unavailable. Please try another city.</p>`;
                         } else {
-                            console.log("City not found - inside 200 status code response");
-                            output.innerHTML = `<p>Data for ${cityName} is unavailable. Please try again later.</p>`;
+                            // any other HTTP status code errors
+                            // log error message
+                            console.error("Error status:", error.reponse.status);
+                            console.error("Error message:", error.message);
+                            output.innerHTML = `<p>An error occurred while fetching data for ${cityName}. Please try again later.</p>`;
                         }
-                    } 
-                
-                    })
-                    .catch((error) => {
-                        console.error("Axios error:", error);
-                        output.innerHTML = `<p>An error occurred while fetching data for ${cityName}. Please try again later.</p>`;
-                    });
+                    } else if (error.request){
+                        // request was made but no response received (e.g. network error)
+                        console.error("Network error:", error.request);
+                        output.innerHTML = `<p>A network error occurred. Please check your internet connection.</p>`
+                    } else {
+                        // some other error occurred while setting up the request
+                        console.error("Request error:", error.message);
+                        output.innerHTML = `<p>An error occurred. Please try again later.</p>`;
+                    }
+                });
             } catch(error) {
-                console.log("here");
                 console.error("An error occured fetching data:", error);
             }
         } 

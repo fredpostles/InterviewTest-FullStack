@@ -52,8 +52,8 @@ app.get('/getTemperature', async (req, res) => {
   // process temp data and find closest temp to current time
   const currentTemperature = findCurrentTemperature(temperatureData);
 
-// if city && temp data found
-return res.status(200).json({cityEntry, temperature: currentTemperature});
+// if temperature data found, return it with city info
+  return res.status(200).json({cityEntry, temperature: currentTemperature});
 });
 
 // find city in csv file
@@ -69,9 +69,10 @@ const fetchTemperatureData = async (cityEntry) => {
  const lat = cityEntry.lat;
  const long = cityEntry.lng;
 
+ // fetch data from Open Meteo using lat & long
  const {data} = await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m`)
   
- console.log("temperature data:", data);
+// return the temperature data
 return data;
 }
 
@@ -82,10 +83,13 @@ const currentTime = new Date();
 
 // Find the closest timestamp
 const timestamps = temperatureData.hourly.time;
-let closestTimestamp = timestamps[0]; // Initialize with the first timestamp
+// Initialize with the first timestamp
+let closestTimestamp = timestamps[0]; 
 let closestTimeDifference = Math.abs(new Date(closestTimestamp) - currentTime);
 
+// loop through timestamps to find closest to current time
 for (const timestamp of timestamps) {
+  // store the time difference while looping
   const timeDifference = Math.abs(new Date(timestamp) - currentTime);
   if (timeDifference < closestTimeDifference) {
       closestTimestamp = timestamp;
@@ -94,9 +98,9 @@ for (const timestamp of timestamps) {
 }
 
 // Find the temperature for the closest timestamp
-const hourlyTempData = temperatureData.hourly.temperature_2m;
-const indexOfClosestTimestamp = timestamps.indexOf(closestTimestamp);
-const closestTemperature = hourlyTempData[indexOfClosestTimestamp];
+const hourlyTempData = temperatureData.hourly.temperature_2m; // array of hourly data
+const indexOfClosestTimestamp = timestamps.indexOf(closestTimestamp); // get closest time
+const closestTemperature = hourlyTempData[indexOfClosestTimestamp]; // get hourly data for current hour
 
 
 return closestTemperature;

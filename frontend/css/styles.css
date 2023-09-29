@@ -13,7 +13,7 @@ html {
     box-sizing: inherit;
   }
 
-  /* Try to keep your margins going in one direction to avoid margin collapase or grounding. I switch all the top margins off to avoid this issue. */
+  /* Switch all top margins off to avoid margin collapse or grounding */
   h1,
   h2,
   h3,
@@ -43,10 +43,12 @@ body {
 .currentTemp__container {
     margin: 2rem auto;
     padding: 2.5rem;
-    width: 60vw;
+    width: 50vw;
     min-width: fit-content;
+    max-width: 60vw;
     background-color: #fbfbfb;
     border-radius: .75rem;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 .searchBar__container {
@@ -75,13 +77,13 @@ body {
 .searchBtn:hover {
     background-color: #f08732;
     color: white;
+    cursor: pointer;
 }
 
 .weatherData__container {
     padding: 1.5rem;
     text-align: center;
     align-items: center;
-
 }
 
 .weatherData__container p {
