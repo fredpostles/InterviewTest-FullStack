@@ -1,17 +1,6 @@
-const express = require('express');
-const cors = require("cors");
+const axios = require("axios");
 const fs = require("fs");
 const csv = require("csv-parser");
-const axios = require("axios");
-
-const app = express();
-const port = process.env.PORT || 3000;
-
-// Middleware to parse JSON requests
-app.use(express.json());
-
-// CORS middleware
-app.use(cors());
 
 // Read the CSV file into memory using csv-parser package
 const cityData = [];
@@ -27,10 +16,9 @@ fs.createReadStream("../data/gb.csv")
         console.log("CSV file successfully processed.");
     });
 
-// GET Endpoint for temperature data
-app.get('/getTemperature', async (req, res) => {
+// Controller function to get temperature data
+const getTemperature = async (req, res) => {
   const cityName = req.query.city;
-  console.log("cityName in backend:", cityName);
 
    // if no cityName received, handle error
    if (!cityName) {
@@ -54,7 +42,7 @@ app.get('/getTemperature', async (req, res) => {
 
 // if temperature data found, return it with city info
   return res.status(200).json({cityEntry, temperature: currentTemperature});
-});
+};
 
 // find city in csv file
 const getCityData = (cityName) => {
@@ -102,10 +90,7 @@ const hourlyTempData = temperatureData.hourly.temperature_2m; // array of hourly
 const indexOfClosestTimestamp = timestamps.indexOf(closestTimestamp); // get closest time
 const closestTemperature = hourlyTempData[indexOfClosestTimestamp]; // get hourly data for current hour
 
-
 return closestTemperature;
 }
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}.`)
-})
+module.exports = {getTemperature};
